@@ -2,7 +2,6 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import re
 import pandas as pd
-from flask import url_for
 #import numpy as np
 
 def textPreprocess(input_text):
@@ -21,7 +20,7 @@ def textPreprocess(input_text):
     
     return removeTriplicated(removeSpecial(removeAccents(input_text.lower())))
 
-df = pd.read_csv(url_for('static', filename='data/conversations.csv'), header= 0, encoding= 'unicode_escape')
+df = pd.read_csv('app/static/data/conversations.csv', header= 0, encoding= 'unicode_escape')
 df['Input'] = df['Input'].apply(lambda x: textPreprocess(str(x)))
 df['Target'] = df['Target'].apply(lambda x: textPreprocess(str(x)))
 questions, answers = df['Input'].tolist(), df['Target'].tolist()
@@ -370,7 +369,7 @@ loaded_model = transformer(
 #import h5py
 #with h5py.File('saved_weights.h5', 'w') as f:
 loaded_model.compile(optimizer=optimizer, loss=loss_function, metrics=[accuracy])
-loaded_model.load_weights(url_for('static', filename='model/saved_weights_2.h5'))
+loaded_model.load_weights('app/static/model/saved_weights_2.h5')
 
 def evaluate(sentence):
   sentence = textPreprocess(sentence)
