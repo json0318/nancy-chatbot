@@ -1,0 +1,45 @@
+	{% extends 'bootstrap/base.html' %}
+	{% block title %}
+		{% if title %}{{ title }} - NANCY{% else %}Welcome to NANCY{% endif %}
+	{% endblock %}
+
+	{% block navbar %}
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="{{ url_for('index') }}">NANCY</a>
+				</div>
+			</div>
+		</nav>
+	{% endblock %}
+	
+	{% block content %}
+		<div class="container">
+		{% block app_content %}{% endblock %}
+		</div>
+	{% endblock %}
+	
+	{% block scripts %}
+		{{ super() }}
+		<script>
+			$(document).ready(function(){  
+				$('#submit').click(function() {
+					$('#chat').html('<img src="{{ url_for('static', filename='img/loading.gif') }}">');
+					$.post('/chat', {
+						msg: $("#post").val(),
+						username: '{{ user.username }}'
+					}).done(function(response) {
+						$('#chat').hide().fadeIn('slow').html(response);
+					}).fail(function() {
+						$('#chat').text("{{ 'Error: Could not contact server.' }}");
+					});
+				});
+			});
+		</script>
+	{% endblock %}

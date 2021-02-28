@@ -1,0 +1,12 @@
+	{% extends "base.html" %}
+	
+	{% block app_content %}
+		<h1>Hi, {{ user.username }}</h1>
+		
+		<div class="form-group  required"><label class="control-label" for="post">Say something</label>
+			<textarea class="form-control" id="post" name="post" required></textarea>
+		</div>
+		<button class="btn btn-default" id="submit" name="submit">Submit</button>
+		
+		<div class="chat" id="chat" style="margin-top: 10px"></div>
+	{% endblock %}
