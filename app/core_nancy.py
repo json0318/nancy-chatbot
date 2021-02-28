@@ -370,7 +370,7 @@ loaded_model = transformer(
 #import h5py
 #with h5py.File('saved_weights.h5', 'w') as f:
 loaded_model.compile(optimizer=optimizer, loss=loss_function, metrics=[accuracy])
-loaded_model.load_weights(url_for('static', filename='model/saved_weights_2.h5')
+loaded_model.load_weights(url_for('static', filename='model/saved_weights_2.h5'))
 
 def evaluate(sentence):
   sentence = textPreprocess(sentence)
